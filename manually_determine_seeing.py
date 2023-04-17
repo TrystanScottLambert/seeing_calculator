@@ -23,7 +23,6 @@ def stamp_cut_out(data: np.ndarray, x_pos:float, y_pos:float) -> np.ndarray:
     return cut_out
 
 
-
 class FitsPlot:
     """Class for the main image plotting."""
     def __init__(self, infile: str) -> None:
@@ -89,6 +88,14 @@ class FitsPlot:
 
 if __name__ == '__main__':
     INFILE = '../DECAM_analysis/correct_stacks/N964/n964.fits'
-    test = FitsPlot(INFILE)
-    test.plot_whole()
-    seeing = test.calculate_seeing()
+    INFILES = [
+        '../DECAM_analysis/correct_stacks/N964/n964.fits',
+        '../DECAM_analysis/correct_stacks/N964/i.fits',
+        '../DECAM_analysis/correct_stacks/N964/z.fits'
+        ]
+
+    for i, infile in enumerate(INFILES):
+        image = FitsPlot(infile)
+        image.plot_whole()
+        print(infile, image.calculate_seeing())
+        
