@@ -6,7 +6,7 @@ I.e., place several annuli over a 2d source and extract a profile.
 import numpy as np
 from astropy.modeling import models, fitting
 
-def fit_2d_gauss(data: np.ndarray):
+def fit_2d_gauss(data: np.ndarray) -> models.Gaussian2D:
     """
     Models a 2 Gaussian and fits it to the cut out source.
     The source has to be a stamp cut out. Function cannot be

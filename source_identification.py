@@ -19,12 +19,11 @@ def select_non_saturated_sources(source_table: Table):
     """
     Determines the sources that are not saturated and are
     not too dim in order to determine the fwhm. To do this
-    we take the values between median - median/4 to median 
-    + median/4.
+    we take the values between median + median/2 to median.
     """
     fluxes = source_table['flux'].value
     median = np.median(fluxes)
-    cut = np.where((fluxes > median - median/4) & (fluxes < median + median/4))[0]
+    cut = np.where(fluxes > 3*median)[0]
     return cut
 
 def find_appropriate_sources(data: np.ndarray) -> Table:

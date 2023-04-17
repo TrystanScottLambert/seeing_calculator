@@ -9,12 +9,15 @@ from astropy.io import fits
 from source_identification import find_appropriate_sources
 from extract_seeing_profile import get_average_fwhm
 
+BOX_WIDTH = 15 # pixels
+
 def stamp_cut_out(data: np.ndarray, x_pos:float, y_pos:float) -> np.ndarray:
     """
-    Makes a standard stamp cut out of an image, using a 30x30 pixel cut
+    Makes a standard stamp cut out of an image, using a 15x15 pixel cut
     around eaach center
     """
-    cut_out = data[int(y_pos)-30:int(y_pos)+30, int(x_pos)-30:int(x_pos)+30]
+    cut_out = data[
+        int(y_pos)-BOX_WIDTH:int(y_pos)+BOX_WIDTH, int(x_pos)-BOX_WIDTH:int(x_pos)+BOX_WIDTH]
 
     return cut_out
 
@@ -26,9 +29,6 @@ def get_avg_fwhm_of_positions(data: np.ndarray, x_positions: List[float], y_posi
     for i, x_pos in enumerate(x_positions):
         cut_out = stamp_cut_out(data, x_pos, y_positions[i])
         if cut_out.shape[0] == cut_out.shape[1]: # Ignore case were one axis is 0 (edge cases)
-            print("WE DID IT")
-            plt.imshow(cut_out)
-            plt.show()
             fwhm = get_average_fwhm(cut_out)
             fwhms.append(fwhm)
     return np.mean(fwhm)
