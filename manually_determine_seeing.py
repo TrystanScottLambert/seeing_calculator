@@ -5,7 +5,7 @@ selecting bright, but non-saturated stars.
 """
 
 import numpy as np
-import pylab as plt
+import matplotlib.pyplot as plt
 from astropy.io import fits
 from astropy.visualization import ZScaleInterval
 
@@ -54,7 +54,10 @@ class FitsPlot:
         """
         Interacting with the main plot. On dbl click ...
         """
+        print('HELLO')
+        print(event)
         if event.dblclick:
+            print('We are double clicking')
             ix, iy = event.xdata, event.ydata
             first_cut_out = stamp_cut_out(self.data, ix, iy)
             model = fit_2d_gauss(first_cut_out)
